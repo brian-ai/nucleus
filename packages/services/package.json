@@ -1,0 +1,19 @@
+{
+	"name": "@brian-ai/services",
+	"version": "1.0.9",
+	"private": true,
+	"dependencies": {
+		"@mapquest/directions": "^0.3.3",
+		"amqplib": "^0.5.3",
+		"dialogflow": "^0.10.2",
+		"natural": "^0.6.3",
+		"spotify-personal-auth": "^1.1.4",
+		"spotify-web-api-node": "^4.0.0",
+		"uuid": "^3.3.2"
+	},
+	"devDependencies": {
+		"hoopa-logger": "^1.1.0",
+		"lodash.maxby": "^4.6.0",
+		"node-nlp": "^3.2.0"
+	}
+}

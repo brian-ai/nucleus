@@ -1,0 +1,31 @@
+{
+	"name": "@brian-ai/nucleus",
+	"version": "1.0.0",
+	"private": true,
+	"description": "brian is here to help you",
+	"main": "index.js",
+	"scripts": {
+		"brian:init": "yarn workspace @brian-ai/core node index.js",
+		"test": "ava"
+	},
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		]
+	},
+	"repository": "git+ssh://git@github.com/brian-ai/nucleus.git",
+	"keywords": [
+		"brian",
+		"ai",
+		"nucleus",
+		"jarvis",
+		"agent"
+	],
+	"author": "Caio Alcantara",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/brian-ai/nucleus/issues"
+	},
+	"homepage": "https://github.com/brian-ai/nucleus#readme",
+	"dependencies": {}
+}

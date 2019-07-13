@@ -1,0 +1,23 @@
+{
+	"name": "@brian-ai/brain",
+	"version": "1.0.0",
+	"private": true,
+	"dependencies": {
+		"aws-sdk": "^2.493.0",
+		"brain.js": "^1.6.1",
+		"cron": "^1.7.1",
+		"dark-sky": "^1.1.5",
+		"date-fns": "^1.30.1",
+		"geoip-lite": "^1.3.7",
+		"lodash.maxby": "^4.6.0",
+		"node-nlp": "^3.2.0",
+		"node-record-lpcm16": "^0.3.1",
+		"public-ip": "^3.1.0",
+		"rethinkly": "^1.0.3",
+		"snowboy": "https://github.com/SnoyIatK/snowboy.git",
+		"speaker": "^0.4.2"
+	},
+	"devDependencies": {
+		"hoopa-logger": "^1.1.0"
+	}
+}
