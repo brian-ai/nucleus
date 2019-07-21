@@ -1,7 +1,19 @@
-import logger from 'hoopa-logger'
-import baseKnowledge from '../knowledge'
-import { safeEmpty } from '@brian-ai/core/utils'
+/**
+ * Memory Handler
+ * @memberof brian-ai/brain
+ */
 
+// Utils
+import { safeEmpty } from '@brian-ai/core/utils'
+import logger from 'hoopa-logger'
+// Areas
+import baseKnowledge from '../knowledge'
+
+/**
+ * Get a memory piece
+ * @param {String} table
+ * @param {String} label
+ */
 const getMemoryShred = async (table, label) => {
   const data = await baseKnowledge.instance.retrieveData(
     await baseKnowledge.instance.getInstance(),
@@ -13,6 +25,9 @@ const getMemoryShred = async (table, label) => {
   return data
 }
 
+/**
+ * The Memory
+ */
 const Memory = {
   getSystemMemory: async () => {
     const config =

@@ -1,3 +1,8 @@
+/**
+ * Weather Handler
+ * @memberof queue-channels
+ */
+
 import logger from 'hoopa-logger'
 
 const weatherHandler = ({ content }) =>

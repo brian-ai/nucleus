@@ -1,5 +1,9 @@
+/**
+ * Devices Handler
+ * @memberof queue-channels
+ */
+
 import logger from 'hoopa-logger'
-// Capabilities
 
 const devicesHandler = async ({ player, instance }) => {
   logger.info('Devices handler started, checking current devices family...')

@@ -1,15 +1,30 @@
-import logger from 'hoopa-logger'
+/**
+ * Converstation Handler
+ * @memberof queue-channels
+ */
+
 import { ConversationContext } from 'node-nlp'
-// Capabilities
-import Speak from '@brian-ai/brain/communication'
 import processIntentType from '@brian-ai/brain/cognition/thinking'
 import { DialogflowAgent } from '@brian-ai/services'
+// Capabilities
+import Speak from '@brian-ai/brain/communication'
+// Utils
+import logger from 'hoopa-logger'
 
+/**
+ * Extract the highest classification
+ * @param {Array} classifications
+ */
 const extractClassification = classifications =>
   classifications.reduce((prev, curr) =>
     Math.abs(curr.value - 1) < Math.abs(prev.value - 1) ? curr : prev
   )
 
+/**
+ * The conversation handler
+ * @param {Object} Message
+ * @param {Object} LanguageProcessor
+ */
 const conversationHandler = async ({ content }, LanguageProcessor) => {
   const context = new ConversationContext()
   const { data: sentence } = JSON.parse(content)

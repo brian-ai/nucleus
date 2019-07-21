@@ -1,3 +1,8 @@
+/**
+ * The Brain
+ * @memberof brian-ai
+ */
+
 // Reactions to Queue(Stimulus)
 import { musicHandler, conversationHandler } from './reactions/queue-channels'
 // Knowledge
@@ -7,22 +12,26 @@ import Routines from './routines'
 // Services
 import { RabbitMQ, player, NLP } from '@brian-ai/services'
 import HotwordDetector from './communication/listening'
+// Utils
 import logger from 'hoopa-logger'
 
 const Subscriber = (SYSTEM_DATA, LanguageProcessor, Brianfy) => {
+  const coreProps = {
+    player,
+    instance: Brianfy,
+    core: {
+      SYSTEM_DATA
+    }
+  }
+
   const channels = [
     {
       channel: 'music_service',
-      callback: msg =>
-        musicHandler({ player, instance: Brianfy, core: { SYSTEM_DATA } }, msg)
+      callback: msg => musicHandler(coreProps, msg)
     },
     {
       channel: 'conversation_service',
-      callback: msg =>
-        conversationHandler(msg, LanguageProcessor, {
-          player,
-          instance: Brianfy
-        })
+      callback: msg => conversationHandler(msg, LanguageProcessor, coreProps)
     }
   ]
 
@@ -32,8 +41,6 @@ const Subscriber = (SYSTEM_DATA, LanguageProcessor, Brianfy) => {
 }
 
 export const init = async () => {
-  // return console.log(process.env)
-
   const Brianfy = await player.instance.authorize()
   const SYSTEM_DATA = await Memory.getSystemMemory()
   const { LanguageProcessor, Bayes } = NLP
@@ -41,7 +48,7 @@ export const init = async () => {
   NLP.trainModel(null, Bayes, LanguageProcessor)
   Subscriber(SYSTEM_DATA, LanguageProcessor, Brianfy)
   Routines(player, Brianfy)
-
+  // TODO: Fix hotword detector sensibiltiy
   // HotwordDetector()
 }
 

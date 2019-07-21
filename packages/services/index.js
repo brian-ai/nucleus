@@ -1,3 +1,7 @@
+/**
+ * Services entrypoint
+ * @memberof brian-ai
+ */
 import NLP from './natural'
 import getRouteToWork from './location'
 import {

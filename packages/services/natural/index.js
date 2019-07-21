@@ -1,9 +1,13 @@
-/* eslint-disable no-unused-expressions */
+/**
+ * Local Natural Processor
+ * @memberof brian-ai
+ */
 import { BayesClassifier } from 'natural'
 import { NlpManager, NluManager } from 'node-nlp'
 import logger from 'hoopa-logger'
 import baseKnowledge from '../../brain/knowledge'
 
+// Creating processors
 const LanguageProcessor = new NlpManager({ languages: 'en' })
 const UnderstandingProcessor = new NluManager({ languages: 'en' })
 

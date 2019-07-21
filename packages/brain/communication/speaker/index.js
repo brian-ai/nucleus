@@ -1,5 +1,11 @@
+/**
+ * The Speaker
+ * @memberof brian-ai/brain
+ */
+
 import AWS from 'aws-sdk'
 import Speaker from 'speaker'
+// Utils
 import logger from 'hoopa-logger'
 
 const Polly = new AWS.Polly({
@@ -7,6 +13,11 @@ const Polly = new AWS.Polly({
   region: 'us-east-1'
 })
 
+/**
+ * Create an PCM Sentence
+ * @param {String} sentence
+ * @returns {Object} PCMText
+ */
 const createSentence = sentence => {
   const Text = `
 		<speak>
@@ -26,6 +37,10 @@ const createSentence = sentence => {
   }
 }
 
+/**
+ * Creates an speaker instance
+ * @param {Object} callback
+ */
 const createSpeaker = callback => {
   const speaker = new Speaker({
     channels: 1,
@@ -44,6 +59,11 @@ const createSpeaker = callback => {
 
   return speaker
 }
+
+/**
+ * Outputs an phrase through brian's voice
+ * @param {String} phrase
+ */
 const speak = phrase =>
   new Promise((resolve, reject) => {
     Polly.synthesizeSpeech(createSentence(phrase), (err, res) => {

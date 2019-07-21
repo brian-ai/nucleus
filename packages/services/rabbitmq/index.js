@@ -1,7 +1,16 @@
+/**
+ * RabbitMQ Service Handler
+ * @memberof brian-ai
+ */
 import amqp from 'amqplib/callback_api'
 import logger from 'hoopa-logger'
 import { RABBIT_URL, RABBIT_PORT } from '@brian-ai/core/config'
 
+/**
+ * Subsribe to related topic rabbitmq channel
+ * @param {String} topic
+ * @param {Function} actionCallback
+ */
 const subscribeToChannel = (topic, actionCallback) => {
   logger.info(`Connecting to ${topic} topic...`)
 
@@ -46,6 +55,11 @@ const subscribeToChannel = (topic, actionCallback) => {
   )
 }
 
+/**
+ * Send a message to a topic channel
+ * @param {String} topic
+ * @param {String} message
+ */
 const sendMessage = (topic, message) => {
   logger.info(`Connecting to rabbitmq ${topic} topic...`)
 

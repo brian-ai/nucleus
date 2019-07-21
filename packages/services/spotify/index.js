@@ -1,12 +1,21 @@
+/**
+ * Brianfy - The spotify handler
+ * @memberof brian-ai
+ */
 import SpotifyWebApi from 'spotify-web-api-node'
 import auth from 'spotify-personal-auth'
 import maxBy from 'lodash.maxby'
 import logger from 'hoopa-logger'
 // Config
 import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@brian-ai/core/config'
-// Speaker Wrapper
+// Capabilities
 import Speak from '../../brain/communication'
 
+/**
+ * Initialize spotify web api
+ * @param {String} access
+ * @param {String} refresh
+ */
 const loadBrianfy = async (access, refresh) => {
   const Brianfy = new SpotifyWebApi()
   Brianfy.setAccessToken(access)
@@ -59,6 +68,11 @@ const authorize = () => {
   })
 }
 
+/**
+ * Handle spotify player volume
+ * @param {String} amount
+ * @param {Object} instance
+ */
 const setVoiceVolume = async (amount = 30, instance) => {
   let newInstance = instance
   if (!instance) {
@@ -106,6 +120,10 @@ const findPlaylists = async (musicGenre = 'Jazz', instance) => {
   })
 }
 
+/**
+ * Calculate the most popular item
+ * @param {Array} items
+ */
 const analyzePopularity = items =>
   Math.max(
     ...items.map(o => {
@@ -118,7 +136,7 @@ const analyzePopularity = items =>
  * @param {Brianfy} instance
  * @returns {Array} Playlists
  */
-const smartSearch = async (query = 'Cooking Jazz', instance) => {
+const smartSearch = async ({ data = 'Cooking Jazz' }, instance) => {
   let newInstance = instance
   if (!instance) {
     newInstance = await authorize()
@@ -187,8 +205,8 @@ const startPlaylist = async (playlist, instance, type = 'playlist') => {
 }
 
 /**
- * Creates an spotifyApi instance
- * @returns spotifyApi
+ * Creates an Brianfy instance
+ * @param {Object} SYSTEM_DATA
  */
 const Brianfy = async SYSTEM_DATA => {
   const spotifyID = SYSTEM_DATA.providers.find(

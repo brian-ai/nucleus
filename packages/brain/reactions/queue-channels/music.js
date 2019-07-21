@@ -1,13 +1,15 @@
-import logger from 'hoopa-logger'
-import maxBy from 'lodash.maxby'
-import Speak from '../../communication'
+/**
+ * Music Handler
+ * @memberof queue-channels
+ */
 
-const greetings = [
-  'Hi There!',
-  'Hi muchacho!',
-  'Hellooow there!',
-  `What's up?!`
-]
+// Capabilities
+import Speak from '../../communication'
+// Utils
+import maxBy from 'lodash.maxby'
+import logger from 'hoopa-logger'
+
+const greetings = ['Hi There!', 'Hi muchacho!', 'Hellow there!', `What's up?!`]
 
 const startSong = async ({ data, options }, { player, instance }, term) => {
   const choosedSong = maxBy(data, 'popularity')
@@ -29,51 +31,67 @@ const startSong = async ({ data, options }, { player, instance }, term) => {
   return logger.info(`Music service | end`)
 }
 
+/**
+ * Parse Options from playlistObject
+ * if needed
+ * @param {*} playlistObject
+ */
+const mountOptions = ({ options }) => {
+  let optionData = options || {}
+
+  if (typeof options === 'string') {
+    optionData = JSON.parse(options)
+  }
+
+  return optionData
+}
+
+/**
+ * The music handler
+ * @param {Object} coreProps
+ * @param {Object} msg
+ */
 const musicHandler = async ({ player, instance }, { content }) => {
-  let contentToPlay
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)]
+  const randomNumber = Math.floor(Math.random() * greetings.length)
+  const greeting = greetings[randomNumber]
   const playlistObject = JSON.parse(content)
-  const options =
-    typeof playlistObject.options === 'string'
-      ? JSON.parse(playlistObject.options)
-      : playlistObject.options || {}
-  const smartSearchResult = await player.smartSearch(
-    playlistObject.data,
-    instance
-  )
-  const results = smartSearchResult.data.length
+  const options = mountOptions(playlistObject)
   const { data } = playlistObject
+  // Do smart search
+  const smartSearchResult = await player.smartSearch(data, instance)
+  // Calculate results quantity
+  const results = smartSearchResult.data.length
 
   if (smartSearchResult.type === 'playlists') {
-    contentToPlay =
-      smartSearchResult.data[
-        Math.floor(Math.random() * smartSearchResult.data.length)
-      ] || player[0]
+    const sentence = `${greeting} I've found ${results} playlists related to ${data}`
+    const randomNumber = Math.floor(
+      Math.random() * smartSearchResult.data.length
+    )
+    const contentToPlay = smartSearchResult.data[randomNumber] || player[0]
+
+    await player.controls.setVoiceVolume(50, instance)
+    await Speak(sentence)
+
+    logger.info(`Music service | ${data} | results: ${results}`)
+
+    if (options.play) {
+      const playSentence = `Now playing ${data} songs..`
+
+      await Speak(playSentence)
+      await player.controls.startPlaylist(contentToPlay, instance)
+
+      player.controls.setVoiceVolume(100, instance)
+    }
+
+    return logger.info(`Music service | end`)
   } else {
+    // Song recognized
     return startSong(
       { data: smartSearchResult.data, options },
       { player, instance },
       data
     )
   }
-
-  const sentence = `${greeting} I've found ${results} playlists related to ${data}`
-
-  await player.controls.setVoiceVolume(50, instance)
-  await Speak(sentence)
-
-  logger.info(`Music service | ${data} | results: ${results}`)
-
-  if (options.play) {
-    const playSentence = `Now playing ${data} songs..`
-
-    await Speak(playSentence)
-    await player.controls.startPlaylist(contentToPlay, instance)
-
-    player.controls.setVoiceVolume(100, instance)
-  }
-
-  return logger.info(`Music service | end`)
 }
 
 export default musicHandler
