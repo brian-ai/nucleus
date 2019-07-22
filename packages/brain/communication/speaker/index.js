@@ -78,7 +78,7 @@ const speak = phrase =>
           setTimeout(() => speaker.close(), 800)
         })
       } catch (error) {
-        logger.error(`Error opening speaker: ${error}`)
+        return logger.error(`Error opening speaker: ${error}`)
       }
     })
   })

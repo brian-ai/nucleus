@@ -5,7 +5,9 @@
 	"description": "brian is here to help you",
 	"main": "index.js",
 	"scripts": {
-		"brian:init": "yarn workspace @brian-ai/core node index.js",
+		"bootstrap": "lerna bootstrap --use-workspaces",
+		"call:brian": "yarn workspace @brian-ai/core nodemon index.js",
+		"synapse:start": "yarn workspace @brian-ai/synapse start",
 		"test": "ava"
 	},
 	"workspaces": {
@@ -27,5 +29,7 @@
 		"url": "https://github.com/brian-ai/nucleus/issues"
 	},
 	"homepage": "https://github.com/brian-ai/nucleus#readme",
-	"dependencies": {}
+	"devDependencies": {
+		"lerna": "^3.16.1"
+	}
 }

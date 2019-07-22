@@ -5,7 +5,8 @@
   "dependencies": {
     "dotenv": "^8.0.0",
     "esm": "^3.2.25",
-    "hoopa-logger": "^1.1.0"
+    "hoopa-logger": "^1.1.0",
+    "nodemon": "^1.19.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",

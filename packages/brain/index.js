@@ -41,7 +41,8 @@ const Subscriber = (SYSTEM_DATA, LanguageProcessor, Brianfy) => {
 }
 
 export const init = async () => {
-  const Brianfy = await player.instance.authorize()
+  const { instance: playerInstance } = player
+  const Brianfy = await playerInstance.authorize()
   const SYSTEM_DATA = await Memory.getSystemMemory()
   const { LanguageProcessor, Bayes } = NLP
 

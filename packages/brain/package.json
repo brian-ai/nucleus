@@ -12,12 +12,16 @@
 		"lodash.maxby": "^4.6.0",
 		"node-nlp": "^3.2.0",
 		"node-record-lpcm16": "^0.3.1",
+		"nodemon": "^1.19.1",
 		"public-ip": "^3.1.0",
 		"rethinkly": "^1.0.3",
 		"snowboy": "https://github.com/SnoyIatK/snowboy.git",
 		"speaker": "^0.4.2"
 	},
 	"devDependencies": {
-		"hoopa-logger": "^1.1.0"
+		"@types/bluebird": "^3.5.27",
+		"@types/node": "^12.6.8",
+		"hoopa-logger": "^1.1.0",
+		"typescript": "^3.5.3"
 	}
 }

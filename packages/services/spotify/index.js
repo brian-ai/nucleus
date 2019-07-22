@@ -80,12 +80,11 @@ const setVoiceVolume = async (amount = 30, instance) => {
     logger.info('Getting spotify credentials')
   }
 
-  logger.info(`Setting volume to: ${amount}`)
-
   try {
+    logger.info(`Setting volume to: ${amount}`)
     newInstance.setVolume(amount)
   } catch (error) {
-    logger.error(`Spotify control service | volume error ${error}`)
+    return logger.error(`Spotify control service | volume error ${error}`)
   }
 }
 
@@ -146,7 +145,7 @@ const smartSearch = async ({ data = 'Cooking Jazz' }, instance) => {
   logger.info('Spotify Smart Search...')
 
   return new Promise(async (resolve, reject) =>
-    newInstance.search(query, ['track', 'playlist']).then(
+    newInstance.search(data, ['track', 'playlist']).then(
       data => {
         const searchResult = data.body
         const playlists = searchResult.playlists.items
@@ -156,7 +155,7 @@ const smartSearch = async ({ data = 'Cooking Jazz' }, instance) => {
 
         if (
           tracksAveragePopularity > 75 ||
-          mostPopularTrack.name.toLowerCase().includes(query)
+          mostPopularTrack.name.toLowerCase().includes(data)
         ) {
           resolve({ data: tracks, type: 'tracks' })
         }

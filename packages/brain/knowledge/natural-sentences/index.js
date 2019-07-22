@@ -11,8 +11,7 @@ export default [
   },
   {
     input: 'Play some Jazz',
-    class: 'song request',
-    answer: 'Your virus definitions have been updated'
+    class: 'song request'
   },
   {
     input: 'Play Jazz',
@@ -226,15 +225,11 @@ export default [
   },
   {
     input: 'Hello',
-    class: 'greeting',
-    answer:
-      'Your virus definitions have been updated. <break time="100ms" />Ops!<break time="300ms" /> Wrong channel, sorry. Hello sir!'
+    class: 'greeting'
   },
   {
     input: 'Hi Brian',
-    class: 'greeting',
-    answer:
-      'Your virus definitions have been updated. <break time="100ms" />Ops!<break time="300ms" /> Wrong channel, sorry. Hello sir!'
+    class: 'greeting'
   },
   {
     input: 'Are you, ok?',

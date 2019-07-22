@@ -69,7 +69,9 @@ const musicHandler = async ({ player, instance }, { content }) => {
     )
     const contentToPlay = smartSearchResult.data[randomNumber] || player[0]
 
-    await player.controls.setVoiceVolume(50, instance)
+    await player.controls
+      .setVoiceVolume(50, instance)
+      .catch(error => logger.error(error))
     await Speak(sentence)
 
     logger.info(`Music service | ${data} | results: ${results}`)
