@@ -4,7 +4,7 @@
  */
 import NLP from './natural'
 import getRouteToWork from './location'
-import {
+import Brianfy, {
   findPlaylists,
   authorize,
   setVoiceVolume,
@@ -16,7 +16,8 @@ import DialogflowAgent from './dialogflow'
 
 const player = {
   instance: {
-    authorize
+    authorize,
+    create: Brianfy
   },
   controls: {
     setVoiceVolume,

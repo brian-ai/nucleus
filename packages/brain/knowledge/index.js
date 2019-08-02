@@ -3,7 +3,7 @@
  * @memberof brian-ai/brain
  */
 
-import rethinkly, { retrieveData } from 'rethinkly'
+import rethinkly, { transactions } from 'rethinkly'
 // Seedling
 import { feelings } from './feelings'
 import NaturalElements from './natural-sentences'
@@ -29,7 +29,8 @@ const getInstance = () => {
 const baseKnowledge = {
   feelings,
   natural: NaturalElements,
-  instance: { getInstance, retrieveData }
+  getInstance,
+  retrieveData: transactions.retrieveData
 }
 
 export default baseKnowledge

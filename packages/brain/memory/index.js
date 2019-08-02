@@ -5,6 +5,7 @@
 
 // Utils
 import { safeEmpty } from '@brian-ai/core/utils'
+import { rethinkly } from 'rethinkly'
 import logger from 'hoopa-logger'
 // Areas
 import baseKnowledge from '../knowledge'
@@ -15,10 +16,10 @@ import baseKnowledge from '../knowledge'
  * @param {String} label
  */
 const getMemoryShred = async (table, label) => {
-  const data = await baseKnowledge.instance.retrieveData(
-    await baseKnowledge.instance.getInstance(),
-    table
-  )
+  const { getInstance } = baseKnowledge
+  const dbInstance = await getInstance()
+
+  const data = rethinkly.transations.data.retrieveData(dbInstance, table)
 
   logger.info(`${label} loaded`)
 

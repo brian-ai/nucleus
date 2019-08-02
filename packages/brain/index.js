@@ -42,13 +42,15 @@ const Subscriber = (SYSTEM_DATA, LanguageProcessor, Brianfy) => {
 
 export const init = async () => {
   const { instance: playerInstance } = player
-  const Brianfy = await playerInstance.authorize()
   const SYSTEM_DATA = await Memory.getSystemMemory()
+  const Brianfy = await playerInstance.create(SYSTEM_DATA)
   const { LanguageProcessor, Bayes } = NLP
 
   NLP.trainModel(null, Bayes, LanguageProcessor)
   Subscriber(SYSTEM_DATA, LanguageProcessor, Brianfy)
   Routines(player, Brianfy)
+
+  // console.log(SYSTEM_DATA)
   // TODO: Fix hotword detector sensibiltiy
   // HotwordDetector()
 }

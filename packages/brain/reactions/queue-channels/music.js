@@ -58,7 +58,7 @@ const musicHandler = async ({ player, instance }, { content }) => {
   const options = mountOptions(playlistObject)
   const { data } = playlistObject
   // Do smart search
-  const smartSearchResult = await player.smartSearch(data, instance)
+  const smartSearchResult = await player.smartSearch({ data }, instance)
   // Calculate results quantity
   const results = smartSearchResult.data.length
 

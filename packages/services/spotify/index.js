@@ -6,20 +6,48 @@ import SpotifyWebApi from 'spotify-web-api-node'
 import auth from 'spotify-personal-auth'
 import maxBy from 'lodash.maxby'
 import logger from 'hoopa-logger'
+import { transactions } from 'rethinkly'
 // Config
 import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@brian-ai/core/config'
 // Capabilities
 import Speak from '../../brain/communication'
+import baseKnowledge from '../../brain/knowledge'
+import { autobind } from 'core-decorators'
 
+const cacheTokens = async ({ access, refresh }) => {
+  const { getInstance } = baseKnowledge
+  const dbInstance = await getInstance()
+
+  transactions.insertData(dbInstance, 'tokens', [
+    {
+      type: 'access',
+      token: access,
+      provider: 'spotify',
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    },
+    {
+      type: 'refresh',
+      token: refresh,
+      provider: 'spotify',
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    }
+  ])
+}
 /**
  * Initialize spotify web api
  * @param {String} access
  * @param {String} refresh
  */
-const loadBrianfy = async (access, refresh) => {
+const loadBrianfy = async (access, refresh, cached) => {
   const Brianfy = new SpotifyWebApi()
   Brianfy.setAccessToken(access)
   Brianfy.setRefreshToken(refresh)
+
+  if (!cached) cacheTokens({ access, refresh })
+
+  logger.info(`Loaded Brianfy with ${cached ? 'cached' : 'new'} credentials...`)
 
   return Brianfy
 }
@@ -48,7 +76,7 @@ const authorize = () => {
         try {
           logger.info('Brianfy loaded!')
 
-          resolve(loadBrianfy(token, refresh))
+          resolve(loadBrianfy(token, refresh, false))
         } catch (err) {
           logger.info('Brianfy, authorization error...')
 
@@ -136,6 +164,8 @@ const analyzePopularity = items =>
  * @returns {Array} Playlists
  */
 const smartSearch = async ({ data = 'Cooking Jazz' }, instance) => {
+  console.log('HERE', data)
+
   let newInstance = instance
   if (!instance) {
     newInstance = await authorize()
@@ -208,17 +238,18 @@ const startPlaylist = async (playlist, instance, type = 'playlist') => {
  * @param {Object} SYSTEM_DATA
  */
 const Brianfy = async SYSTEM_DATA => {
-  const spotifyID = SYSTEM_DATA.providers.find(
-    providerObj => providerObj.slug === 'spotify'
-  ).id
-  const spotifyToken = SYSTEM_DATA.tokens.find(
-    tokenObj => tokenObj.provider === spotifyID
+  const tokens = SYSTEM_DATA.tokens.filter(
+    token => token.provider === 'spotify'
   )
-  const spotifyApi = !(spotifyToken && spotifyToken.access)
-    ? await authorize()
-    : loadBrianfy(spotifyToken.access, spotifyToken.refresh)
 
-  return spotifyApi
+  if (tokens.length) {
+    const access = tokens.find(token => token.type === 'access')
+    const refresh = tokens.find(token => token.type === 'refresh')
+
+    return loadBrianfy(access, refresh, true)
+  }
+
+  return authorize()
 }
 
 export default Brianfy
