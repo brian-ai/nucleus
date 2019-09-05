@@ -6,7 +6,7 @@ import SpotifyWebApi from 'spotify-web-api-node'
 import auth from 'spotify-personal-auth'
 import maxBy from 'lodash.maxby'
 import logger from 'hoopa-logger'
-import { transactions } from 'rethinkly'
+import { insertData } from 'rethinkly'
 // Config
 import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@brian-ai/core/config'
 // Capabilities
@@ -18,7 +18,7 @@ const cacheTokens = async ({ access, refresh }) => {
   const { getInstance } = baseKnowledge
   const dbInstance = await getInstance()
 
-  transactions.insertData(dbInstance, 'tokens', [
+  insertData(dbInstance, 'tokens', [
     {
       type: 'access',
       token: access,
