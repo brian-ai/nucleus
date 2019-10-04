@@ -1,4 +1,4 @@
-### Nucleus
+# Nucleus
 - Standalone module to run all brian services into a single instance.
 
 ### Contents:
