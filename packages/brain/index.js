@@ -2,8 +2,7 @@
  * The Brain
  * @memberof brian-ai
  */
-
-// Reactions to Queue(Stimulus)
+// Stimulus reactions
 import { musicHandler, conversationHandler } from './reactions/queue-channels'
 // Knowledge
 import Memory from './memory'

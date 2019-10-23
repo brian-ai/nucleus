@@ -12,7 +12,6 @@ import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@brian-ai/core/config'
 // Capabilities
 import Speak from '../../brain/communication'
 import baseKnowledge from '../../brain/knowledge'
-import { autobind } from 'core-decorators'
 
 const cacheTokens = async ({ access, refresh }) => {
   const { getInstance } = baseKnowledge
@@ -35,6 +34,7 @@ const cacheTokens = async ({ access, refresh }) => {
     }
   ])
 }
+
 /**
  * Initialize spotify web api
  * @param {String} access
@@ -164,15 +164,14 @@ const analyzePopularity = items =>
  * @returns {Array} Playlists
  */
 const smartSearch = async ({ data = 'Cooking Jazz' }, instance) => {
-  console.log('HERE', data)
-
   let newInstance = instance
+
   if (!instance) {
     newInstance = await authorize()
     logger.info('Getting spotify credentials')
   }
 
-  logger.info('Spotify Smart Search...')
+  logger.info('Starting spotify smart search...')
 
   return new Promise(async (resolve, reject) =>
     newInstance.search(data, ['track', 'playlist']).then(
@@ -241,13 +240,6 @@ const Brianfy = async SYSTEM_DATA => {
   const tokens = SYSTEM_DATA.tokens.filter(
     token => token.provider === 'spotify'
   )
-
-  if (tokens.length) {
-    const access = tokens.find(token => token.type === 'access')
-    const refresh = tokens.find(token => token.type === 'refresh')
-
-    return loadBrianfy(access, refresh, true)
-  }
 
   return authorize()
 }
