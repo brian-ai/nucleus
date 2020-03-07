@@ -13,7 +13,7 @@ const getRouteToWork = (a, b) => {
     })
     .then(function(results) {
       const { distance, formattedTime, name } = results.properties
-      const firstRouteId = results.properties.routeSessionIds[0] //access routeSessionIds here
+      const firstRouteId = results.properties.routeSessionIds[0]
 
       return {
         distance,
