@@ -3,7 +3,7 @@ import { distanceInWordsToNow } from 'date-fns'
 import logger from 'hoopa-logger'
 
 const Scheduler = (
-  cronTime = '00 30 5 * * 1-5',
+  cronTime = '30 5 * * 1-5',
   jobName,
   callback,
   start = true

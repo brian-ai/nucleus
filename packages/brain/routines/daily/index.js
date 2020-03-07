@@ -7,11 +7,11 @@ import startDay from './start-day'
 import Scheduler from '../helpers'
 
 export default async (
-  cronTime = '00 30 5 * * 1-5',
+  cronTime = '30 5 * * 1-5',
   jobName,
   { player, instance }
 ) => {
-  Scheduler(cronTime, 'Daily Job', async () => {
+  Scheduler(cronTime, jobName, async () => {
     /*
      * Runs every week days
      * at 5:30:00 AM.
@@ -21,24 +21,20 @@ export default async (
 
     player.controls.setVoiceVolume(50, instance)
 
-    const dayInformation = await startDay()
-
-    return Speak(dayInformation, { player, instance })
-      .then(() => {
-        Speak(
-          `
-					I'll play a few songs for you Sir!
-					<break time="1s"/> Playing ${playlists[playlistNumber].name}
-					from spotify! <emphasis level="reduced">enjoy!</emphasis>
-					<break time="1s"/>
-				`,
-          { player, instance }
-        )
-          .then(() =>
-            player.controls.startPlaylist(playlists[playlistNumber], instance)
-          )
-          .catch(err => logger.error(err))
-      })
+    await startDay()
+    
+    return Speak(
+        `
+        I'll play a few songs for you Sir!
+        <break time="1s"/> Playing ${playlists[playlistNumber].name}
+        from spotify! <emphasis level="reduced">enjoy!</emphasis>
+        <break time="1s"/>
+      `,
+        { player, instance }
+      )
+      .then(() =>
+        player.controls.startPlaylist(playlists[playlistNumber], instance)
+      )
       .catch(err => logger.error(err))
   })
 }
