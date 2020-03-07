@@ -12,4 +12,4 @@
 - `$ yarn test`: Brings up AVA test suite (to be improved)
 
 ### Installation:
-- Please make sure that you´re providing all necessary background tools and deps described at the core installing procedure.
+- Please make sure that youre providing all necessary background tools and deps described at the core installing procedure.
