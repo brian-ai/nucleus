@@ -31,5 +31,9 @@
 	"homepage": "https://github.com/brian-ai/nucleus#readme",
 	"devDependencies": {
 		"lerna": "^3.16.1"
+	},
+	"resolutions": {
+		"kind-of": "^6.0.3",
+		"minimist": "^0.2.1"
 	}
 }
