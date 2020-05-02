@@ -9188,20 +9188,22 @@ rethinkdb@^2.3.3:
   dependencies:
     bluebird ">= 2.3.2 < 3"
 
-rethinkly@^1.0.4-6:
-  version "1.0.4-6"
-  resolved "https://registry.yarnpkg.com/rethinkly/-/rethinkly-1.0.4-6.tgz#3f229b5425931fd727fb43fecf3e2da883c4ae64"
-  integrity sha512-NqRh9/PoigV8PAPtatvFKt1WWMbYVEGyhJv+/xUWYr4Ww+SsKvAjRMRciXXRFS/DcEv9TvB8ndo1rF2LvxzOZQ==
-  dependencies:
-    "@babel/plugin-transform-runtime" "^7.5.5"
-    "@babel/polyfill" "^7.4.4"
-    ava "^1.3.1"
-    rethinkdb "^2.3.3"
-
 rethinkly@^1.0.4-7:
   version "1.0.4-7"
   resolved "https://registry.yarnpkg.com/rethinkly/-/rethinkly-1.0.4-7.tgz#79796713b65a94a6adb4e322c99796bf4e4705ff"
   integrity sha512-DOc+fljIgA28+dAZJAnbJk4lXRjRso1X2G0MKxvapjFlTuIHC5zGq6AMygK7RW9Ffn4Obs8NN9GoUbX/3ae2qA==
+  dependencies:
+    "@babel/plugin-transform-runtime" "^7.5.5"
+    "@babel/polyfill" "^7.4.4"
+    ava "^1.3.1"
+    babel-node "^0.0.1-security"
+    rethinkdb "^2.3.3"
+    set-value "^3.0.1"
+
+rethinkly@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/rethinkly/-/rethinkly-1.2.4.tgz#18d057a1721b2da1670b514cc438d02ababc5a72"
+  integrity sha512-rZyMGUUK5dJr16smDMEnyeTxhnnIJttA3gFQoyso+u91EytvbsGaTPmW34qQ7tNbk1A9s5EH5sG04RPKK8T2mw==
   dependencies:
     "@babel/plugin-transform-runtime" "^7.5.5"
     "@babel/polyfill" "^7.4.4"

@@ -14,7 +14,7 @@
 		"node-record-lpcm16": "^0.3.1",
 		"nodemon": "^1.19.1",
 		"public-ip": "^3.1.0",
-		"rethinkly": "^1.0.4-6",
+		"rethinkly": "^1.2.4",
 		"snowboy": "https://github.com/SnoyIatK/snowboy.git",
 		"speaker": "^0.4.2"
 	},
