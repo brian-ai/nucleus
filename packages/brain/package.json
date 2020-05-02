@@ -16,7 +16,7 @@
 		"public-ip": "^3.1.0",
 		"rethinkly": "^1.2.4",
 		"snowboy": "https://github.com/SnoyIatK/snowboy.git",
-		"speaker": "^0.4.2"
+		"speaker": "^0.5.1"
 	},
 	"devDependencies": {
 		"@types/bluebird": "^3.5.27",

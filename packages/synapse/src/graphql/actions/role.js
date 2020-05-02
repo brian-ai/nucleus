@@ -6,7 +6,7 @@ const { instance, retrieveData, insertData } = rethinkly
 export const getRole = async (_, { id }) => {
   logger.info(`Getting role --id: ${id} from rethink`)
 
-  return retrieveData(await instance, 'roles', id)
+  return retrieveData(await instance, 'roles', { id })
 }
 
 export const listRoles = async () => {
