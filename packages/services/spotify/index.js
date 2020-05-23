@@ -206,7 +206,7 @@ const smartSearch = async ({ data = 'Cooking Jazz' }, instance) => {
  * @param {Brianfy} instance
  * @param {Object} playlist
  */
-const startPlaylist = async (playlist, instance, type = 'playlist') => {
+const startPlaylist = async (playlist, instance, player, type = 'playlist') => {
   let newInstance = instance
   if (!instance) {
     newInstance = await authorize()
@@ -226,11 +226,24 @@ const startPlaylist = async (playlist, instance, type = 'playlist') => {
     .play({
       ...options
     })
-    .catch(error => logger.error(error))
+    .then(async () => {
+      logger.info(`${playlist.name} started`)
+      
+      await Speak(
+          `
+          <break time="1s"/>Now playing ${playlists[playlistNumber].name}
+          from spotify! <emphasis level="reduced">enjoy!</emphasis>
+          <break time="1s"/>
+        `
+      )
 
-  logger.info(`${playlist.name} started`)
+      return setVoiceVolume(100, newInstance)
+    })
+    .catch(error => {
+      logger.error(error)
 
-  return setVoiceVolume(100, newInstance)
+      return Speak(`<p>Sorry, but I couldn't access your spotify instance and for that reason you're not going to listen my amazing songs suggestions...</p>`)
+    })
 }
 
 /**

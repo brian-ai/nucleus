@@ -11,7 +11,7 @@ export default async (
   jobName,
   { player, instance }
 ) => {
-  Scheduler(cronTime, jobName, async () => {
+  // Scheduler(cronTime, jobName, async () => {
     /*
      * Runs every week days
      * at 5:30:00 AM.
@@ -22,19 +22,20 @@ export default async (
     player.controls.setVoiceVolume(50, instance)
 
     await startDay()
+
+    player.controls.startPlaylist(playlists[playlistNumber], instance)
     
-    return Speak(
-        `
-        I'll play a few songs for you Sir!
-        <break time="1s"/> Playing ${playlists[playlistNumber].name}
-        from spotify! <emphasis level="reduced">enjoy!</emphasis>
-        <break time="1s"/>
-      `,
-        { player, instance }
-      )
-      .then(() =>
-        player.controls.startPlaylist(playlists[playlistNumber], instance)
-      )
-      .catch(err => logger.error(err))
-  })
+  //   return Speak(
+  //       `
+  //       <break time="1s"/>Now playing ${playlists[playlistNumber].name}
+  //       from spotify! <emphasis level="reduced">enjoy!</emphasis>
+  //       <break time="1s"/>
+  //     `,
+  //       { player, instance }
+  //     )
+  //     .then(() =>
+  //       player.controls.startPlaylist(playlists[playlistNumber], instance)
+  //     )
+  //     .catch(err => logger.error(err))
+  // })
 }
