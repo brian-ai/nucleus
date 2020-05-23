@@ -28,7 +28,6 @@ const startDay = async () => {
   const eventData = await mountEventsInfo()
   
   logger.info('Daily useful information loaded!')
-  console.log({ city: location.city})
 
   return Speak(`
 		<p>${greetingObject.sentence} sir!</p>
