@@ -231,7 +231,7 @@ const startPlaylist = async (playlist, instance, player, type = 'playlist') => {
       
       await Speak(
           `
-          <break time="1s"/>Now playing ${playlists[playlistNumber].name}
+          <break time="1s"/>Now playing ${playlist.name}
           from spotify! <emphasis level="reduced">enjoy!</emphasis>
           <break time="1s"/>
         `
