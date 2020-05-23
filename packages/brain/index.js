@@ -49,7 +49,6 @@ export const init = async () => {
   Subscriber(SYSTEM_DATA, LanguageProcessor, Brianfy)
   Routines(player, Brianfy)
 
-  // console.log(SYSTEM_DATA)
   // TODO: Fix hotword detector sensibiltiy
   // HotwordDetector()
 }
