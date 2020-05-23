@@ -105,12 +105,13 @@ const setVoiceVolume = async (amount = 30, instance) => {
   let newInstance = instance
   if (!instance) {
     newInstance = await authorize()
-    logger.info('Getting spotify credentials')
+    logger.info('Authorizing spotify again...')
   }
 
   try {
-    logger.info(`Setting volume to: ${amount}`)
     newInstance.setVolume(amount)
+      .then(data => logger.info(`Setting volume to: ${amount}`))
+      .catch(error => logger.error(`Spotify control service | volume error ${error}`))
   } catch (error) {
     return logger.error(`Spotify control service | volume error ${error}`)
   }
