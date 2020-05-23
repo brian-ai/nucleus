@@ -21,9 +21,10 @@ const getGreetingTime = () => {
     humanizedTime = 'evening'
   }
 
+  //TODO: Dynamize current user
   return {
     humanizedTime,
-    sentence: `Good ${humanizedTime}`
+    sentence: `<emphasis level="moderate">Good ${humanizedTime}</emphasis>`
   }
 }
 
