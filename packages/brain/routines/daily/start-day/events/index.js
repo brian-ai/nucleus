@@ -10,7 +10,7 @@ export const mountEventsInfo = async () => {
     
 
     if (eventsCount > 0) {
-        eventsInfo.push(`<p>For today you have ${eventsCount} ${eventsCount === 1 ? 'event' : 'events'} planned</p>`);
+        eventsInfo.push(`<p>You have ${eventsCount} ${eventsCount === 1 ? 'event' : 'events'} in your calendar</p>`);
         events.map(({ summary, originalStartTime }) => {
             const eventTime = new Date(originalStartTime.dateTime).toLocaleTimeString('en-US', { ...TIME_OPTIONS })
             
